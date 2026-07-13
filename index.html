@@ -179,6 +179,41 @@
   }
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
+  /* ---------- check-in gate & views ---------- */
+  [data-view="biz"]{display:none}
+  body.view-biz [data-view="biz"]{display:revert}
+  body.view-biz [data-view="pro"]{display:none}
+  .gate{
+    position:fixed;inset:0;z-index:50;
+    background:rgba(21,24,28,.6);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+  }
+  .gate[hidden]{display:none}
+  .gate-panel{max-width:540px;width:100%;border:1px solid var(--ink);background:var(--card);box-shadow:8px 8px 0 var(--yellow)}
+  .gate-body{padding:26px 24px}
+  .gate-body h2{font-family:"Archivo",sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;margin-bottom:8px}
+  .gate-body .sub{font-size:.95rem;color:#3A404A}
+  .gate-opts{display:grid;gap:10px;margin:18px 0 16px}
+  .gate-btn{
+    font-family:"IBM Plex Sans",sans-serif;font-size:.98rem;font-weight:600;
+    text-align:left;padding:14px 16px;background:var(--paper);
+    border:1px solid var(--ink);cursor:pointer;color:var(--ink);
+    transition:background .12s ease;
+  }
+  .gate-btn:hover{background:var(--yellow)}
+  .gate-skip{
+    background:none;border:none;cursor:pointer;padding:0;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--steel);
+    letter-spacing:.06em;text-transform:uppercase;
+  }
+  .gate-skip:hover{color:var(--ink)}
+  .switch-view{cursor:pointer}
+  .loc-note{
+    font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--steel);
+    margin-top:14px;letter-spacing:.03em;
+  }
+  @media (prefers-reduced-motion:reduce){.gate-btn{transition:none}}
+
   /* ---------- responsive ---------- */
   @media (max-width:860px){
     .hero-grid{grid-template-columns:1fr;gap:32px}
@@ -199,14 +234,38 @@
 </head>
 <body>
 
+<div class="gate" id="gate" hidden>
+  <div class="gate-panel" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="gate-body" id="gateStep1">
+      <h2 id="gateTitle">Welcome — who am I talking to?</h2>
+      <p class="sub">I'll show you the version of this site that fits you best.</p>
+      <div class="gate-opts">
+        <button class="gate-btn" data-pick-view="biz">I run a business or need a website / automation</button>
+        <button class="gate-btn" data-pick-view="pro">I'm in aviation, engineering or hiring</button>
+      </div>
+      <button class="gate-skip" data-pick-view="all">Just show me everything →</button>
+    </div>
+    <div class="gate-body" id="gateStep2" hidden>
+      <h2>And where are you based?</h2>
+      <div class="gate-opts">
+        <button class="gate-btn" data-pick-loc="my">Malaysia</button>
+        <button class="gate-btn" data-pick-loc="intl">Outside Malaysia</button>
+      </div>
+      <button class="gate-skip" data-pick-loc="">Skip →</button>
+    </div>
+  </div>
+</div>
+
 <header class="top">
   <div class="top-inner">
-    <a class="brand" href="#">Saif Imran / CI + Tooling</a>
+    <a class="brand" href="#">Saif / CI + Tooling</a>
     <nav>
-      <a href="#capabilities">Capabilities</a>
-      <a href="#work">Work</a>
+      <a href="#services" data-view="biz">Services</a>
+      <a href="#capabilities" data-view="pro">Capabilities</a>
+      <a href="#work" data-view="pro">Work</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
+      <a href="#" class="switch-view" id="switchView" title="Change how this site is shown">⇄ View</a>
     </nav>
   </div>
 </header>
@@ -214,9 +273,16 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow">Continuous Improvement · Aviation MRO · Malaysia</p>
-      <h1>I find the waste on the floor —<br><span class="hl">then build the tool that removes it.</span></h1>
-      <p class="lede">Ten years in aviation maintenance, repair and overhaul. I run lean and Kaizen programmes, and when the process needs software that doesn't exist, I build it myself — from Power Platform automations to Python parsers, planning tools, and IoT trackers.</p>
+      <div data-view="pro">
+        <p class="eyebrow">Continuous Improvement · Aviation MRO · Malaysia</p>
+        <h1>I find the waste on the floor —<br><span class="hl">then build the tool that removes it.</span></h1>
+        <p class="lede">Ten years in aviation maintenance, repair and overhaul. I run lean and Kaizen programmes, and when the process needs software that doesn't exist, I build it myself — from Power Platform automations to Python parsers, planning tools, and IoT trackers.</p>
+      </div>
+      <div data-view="biz">
+        <p class="eyebrow">Websites · Automation · Malaysia</p>
+        <h1>Your website, sorted.<br><span class="hl">Your busywork, automated.</span></h1>
+        <p class="lede">I help individuals and small businesses get websites that actually work — bookings, payments, security — and set up simple automations that save hours of repetitive admin. Plain language, honest advice, fair prices.</p>
+      </div>
     </div>
     <div class="spec" aria-label="Profile summary">
       <div class="spec-head">Personnel Record</div>
@@ -234,7 +300,30 @@
 
 <div class="hazard" role="presentation"></div>
 
-<section id="capabilities">
+<section id="services" data-view="biz">
+  <div class="wrap">
+    <div class="sec-head"><h2>What I can do for you</h2><span class="tag">// services</span></div>
+    <div class="caps">
+      <div class="cap">
+        <h3>Websites</h3>
+        <p>New builds, repairs and rescues — online bookings, card payments, backups and security hardening so you don't wake up to a hacked site. I recently audited and secured a live campsite booking business end to end.</p>
+        <span class="stack">WORDPRESS · STRIPE · BOOKINGS · SECURITY</span>
+      </div>
+      <div class="cap">
+        <h3>Automation</h3>
+        <p>The admin you repeat every week — reminders, reports, follow-ups, copying data between apps — set up to run itself. If it's boring and regular, it can probably be automated.</p>
+        <span class="stack">ALERTS · SCHEDULING · REPORTS · WORKFLOWS</span>
+      </div>
+      <div class="cap">
+        <h3>Messy data, made usable</h3>
+        <p>PDFs, scans and overgrown spreadsheets turned into clean, searchable information — and simple dashboards so you can actually see how your business is doing.</p>
+        <span class="stack">PDF → DATA · SPREADSHEETS · DASHBOARDS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capabilities" data-view="pro">
   <div class="wrap">
     <div class="sec-head"><h2>Capabilities</h2><span class="tag">// what I sell</span></div>
     <div class="caps">
@@ -272,7 +361,7 @@
   </div>
 </section>
 
-<section id="work">
+<section id="work" data-view="pro">
   <div class="wrap">
     <div class="sec-head"><h2>Selected Work</h2><span class="tag">// task cards</span></div>
     <div class="cards">
@@ -413,7 +502,8 @@
   <div class="wrap">
     <div class="sec-head"><h2>Raise a work order</h2><span class="tag">// contact</span></div>
     <p>Have a process that leaks time, a document format nobody can parse, or a website that needs a safe pair of hands? Tell me what's broken — I'll tell you honestly whether it's a process fix or a build.</p>
-    <a class="btn" href="mailto:mohamadsaifimran@gmail.com">Send an email</a>
+    <a class="btn" href="mailto:YOUR-EMAIL@example.com">Send an email</a>
+    <p class="loc-note" id="locNote" hidden></p>
     <div class="links">
       <a href="https://github.com/saifimran97">GitHub</a>
       <a href="https://www.linkedin.com/in/mohamadsaifimran">LinkedIn</a>
@@ -430,5 +520,61 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var KEY='saif-view', LOC='saif-loc';
+  var gate=document.getElementById('gate');
+  var step1=document.getElementById('gateStep1');
+  var step2=document.getElementById('gateStep2');
+
+  function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function read(k){try{return localStorage.getItem(k)}catch(e){return null}}
+
+  function setView(v){
+    document.body.classList.remove('view-biz','view-pro');
+    if(v==='biz'||v==='pro'){document.body.classList.add('view-'+v);}
+    store(KEY,v);
+  }
+
+  function setLoc(l){
+    store(LOC,l||'');
+    var n=document.getElementById('locNote');
+    if(!n){return;}
+    if(l==='my'){
+      n.textContent='Based in Greater Kuala Lumpur — happy to work with clients across Malaysia, online or in person.';
+      n.hidden=false;
+    }else if(l==='intl'){
+      n.textContent='Based in Malaysia (GMT+8) — I work remotely with clients worldwide.';
+      n.hidden=false;
+    }else{
+      n.hidden=true;
+    }
+  }
+
+  function openGate(){gate.hidden=false;step1.hidden=false;step2.hidden=true;}
+  function closeGate(){gate.hidden=true;}
+
+  document.querySelectorAll('[data-pick-view]').forEach(function(b){
+    b.addEventListener('click',function(){
+      setView(b.getAttribute('data-pick-view'));
+      step1.hidden=true;step2.hidden=false;
+    });
+  });
+
+  document.querySelectorAll('[data-pick-loc]').forEach(function(b){
+    b.addEventListener('click',function(){
+      setLoc(b.getAttribute('data-pick-loc'));
+      closeGate();
+    });
+  });
+
+  var sw=document.getElementById('switchView');
+  if(sw){sw.addEventListener('click',function(e){e.preventDefault();openGate();});}
+
+  var saved=read(KEY);
+  if(saved){setView(saved);setLoc(read(LOC));}
+  else{openGate();}
+})();
+</script>
 </body>
 </html>
