@@ -1,56 +1,358 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Mohamad Saif Imran</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .btn {
-            display: inline-block;
-            background: #0066cc;
-            color: white;
-            padding: 12px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saif — Continuous Improvement & Tooling</title>
+<meta name="description" content="Continuous improvement engineer in aviation MRO who builds his own tools — automation, dashboards, Python utilities, and web apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F3F0;
+    --card:#FCFCFA;
+    --ink:#15181C;
+    --steel:#46596B;
+    --muted:#6B7480;
+    --line:#C7CBC4;
+    --yellow:#F5B700;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:var(--ink)}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+  /* ---------- top bar ---------- */
+  header.top{
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+    position:sticky;top:0;z-index:10;
+  }
+  .top-inner{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 24px;max-width:var(--maxw);margin:0 auto;
+    font-family:"IBM Plex Mono",monospace;font-size:13px;
+  }
+  .top-inner .brand{font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+  .top-inner nav a{
+    text-decoration:none;color:var(--steel);margin-left:20px;
+    letter-spacing:.05em;text-transform:uppercase;font-size:12px;
+  }
+  .top-inner nav a:hover{color:var(--ink)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 56px}
+  .hero-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:48px;align-items:end}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--steel);margin-bottom:18px;
+  }
+  h1{
+    font-family:"Archivo",sans-serif;font-weight:900;
+    font-size:clamp(2.4rem,6vw,4.2rem);
+    line-height:1.02;letter-spacing:-0.015em;text-transform:uppercase;
+  }
+  h1 .hl{color:var(--steel)}
+  .hero p.lede{margin-top:22px;font-size:1.1rem;max-width:34em;color:#2A2F36}
+  .spec{
+    font-family:"IBM Plex Mono",monospace;font-size:13px;
+    border:1px solid var(--ink);background:var(--card);
+  }
+  .spec .spec-head{
+    background:var(--ink);color:var(--paper);padding:8px 14px;
+    letter-spacing:.14em;font-size:11px;text-transform:uppercase;
+  }
+  .spec dl{padding:14px}
+  .spec .row{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed var(--line)}
+  .spec .row:last-child{border-bottom:none}
+  .spec dt{color:var(--muted)}
+  .spec dd{text-align:right;font-weight:500}
+
+  .hazard{
+    height:14px;
+    background:repeating-linear-gradient(-45deg,var(--yellow) 0 16px,var(--ink) 16px 32px);
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:64px 0}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px}
+  .sec-head h2{
+    font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:.01em;
+  }
+  .sec-head .tag{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--steel);
+    letter-spacing:.12em;text-transform:uppercase;
+  }
+
+  /* ---------- capabilities ---------- */
+  .caps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .cap{background:var(--card);padding:26px 22px}
+  .cap h3{font-family:"Archivo",sans-serif;font-weight:700;font-size:1.02rem;text-transform:uppercase;letter-spacing:.02em;margin-bottom:10px}
+  .cap p{font-size:.95rem;color:#3A404A}
+  .cap .stack{
+    display:block;margin-top:14px;font-family:"IBM Plex Mono",monospace;
+    font-size:11.5px;color:var(--steel);letter-spacing:.03em;
+  }
+
+  /* ---------- project task cards ---------- */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .tcard{
+    background:var(--card);border:1px solid var(--ink);
+    display:flex;flex-direction:column;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .tcard:hover{transform:translateY(-3px);box-shadow:6px 6px 0 var(--yellow)}
+  .tcard-head{
+    display:flex;justify-content:space-between;gap:10px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--paper);background:var(--ink);
+    padding:7px 14px;
+  }
+  .tcard-body{padding:20px 18px 22px;flex:1;display:flex;flex-direction:column}
+  .tcard h3{font-family:"Archivo",sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:.01em;margin-bottom:8px}
+  .tcard p{font-size:.95rem;color:#31363E;flex:1}
+  .tcard .meta{
+    margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--steel);
+    display:flex;flex-wrap:wrap;gap:6px 14px;
+  }
+  .tcard .meta span::before{content:"▸ ";color:var(--yellow)}
+
+  /* ---------- freelance strip ---------- */
+  .strip{
+    border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+    padding:34px 28px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;
+  }
+  .strip h2{font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;font-size:1.4rem;margin-bottom:10px}
+  .strip p{color:#C9CFD6;font-size:.98rem}
+  .strip .mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--yellow);letter-spacing:.06em}
+  .strip ul{list-style:none;font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:2;color:#C9CFD6}
+  .strip ul li::before{content:"+ ";color:var(--yellow)}
+
+  /* ---------- contact ---------- */
+  .contact p{max-width:36em;margin-bottom:26px}
+  .btn{
+    display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:13px;
+    letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+    border:1px solid var(--ink);padding:13px 26px;background:var(--yellow);
+    color:var(--ink);font-weight:600;
+    transition:box-shadow .15s ease,transform .15s ease;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+  .links{margin-top:22px;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .links a{color:var(--steel);margin-right:22px}
+
+  footer{
+    border-top:1px solid var(--line);padding:22px 0 40px;
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);
+  }
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:32px}
+    .caps{grid-template-columns:1fr 1fr}
+    .cards{grid-template-columns:1fr}
+    .strip{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .caps{grid-template-columns:1fr}
+    .top-inner nav a{margin-left:12px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .tcard,.btn{transition:none}
+    .tcard:hover,.btn:hover{transform:none}
+  }
+</style>
 </head>
 <body>
 
-<h1>Mohamad Saif Imran</h1>
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#">Saif / CI + Tooling</a>
+    <nav>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<p>
-Helping businesses with operations, automation, dashboards, and custom solutions.
-</p>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Continuous Improvement · Aviation MRO · Malaysia</p>
+      <h1>I find the waste on the floor —<br><span class="hl">then build the tool that removes it.</span></h1>
+      <p class="lede">Ten years in aviation maintenance, repair and overhaul. I run lean and Kaizen programmes, and when the process needs software that doesn't exist, I build it myself — from Power Platform automations to Python parsers, planning tools, and IoT trackers.</p>
+    </div>
+    <div class="spec" aria-label="Profile summary">
+      <div class="spec-head">Personnel Record</div>
+      <dl>
+        <div class="row"><dt>Role</dt><dd>CI Executive</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Aviation MRO</dd></div>
+        <div class="row"><dt>Experience</dt><dd>10 yrs</dd></div>
+        <div class="row"><dt>Method</dt><dd>Lean / Kaizen</dd></div>
+        <div class="row"><dt>Side work</dt><dd>Freelance web dev</dd></div>
+        <div class="row"><dt>Status</dt><dd>In service ✓</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
 
-<h2>Services</h2>
-<ul>
-    <li>Business Process Automation</li>
-    <li>Dashboard Development</li>
-    <li>Data Analysis & Reporting</li>
-    <li>Custom Web Tools</li>
-</ul>
+<div class="hazard" role="presentation"></div>
 
-<h2>Why Work With Me?</h2>
-<p>
-Practical solutions that save time, reduce manual work, and improve visibility.
-</p>
+<section id="capabilities">
+  <div class="wrap">
+    <div class="sec-head"><h2>Capabilities</h2><span class="tag">// what I sell</span></div>
+    <div class="caps">
+      <div class="cap">
+        <h3>Process Improvement</h3>
+        <p>Lean and Kaizen programmes for industrial operations — pain-point intake, kaizen event tracking, 5W2H problem framing, and impact scoring that keeps improvement work visible and honest.</p>
+        <span class="stack">LEAN · KAIZEN · 5W2H · GEMBA</span>
+      </div>
+      <div class="cap">
+        <h3>Workflow Automation</h3>
+        <p>Internal apps and automations on the Microsoft stack — manpower boards, calibration-due alerts, idea-intake pipelines — built to work inside real enterprise constraints like conditional access.</p>
+        <span class="stack">POWER APPS · POWER AUTOMATE · SHAREPOINT · POWER BI</span>
+      </div>
+      <div class="cap">
+        <h3>Python Tooling</h3>
+        <p>Purpose-built utilities where off-the-shelf software fails: PDF task-card parsers, batch print sorters, and data pipelines that turn locked-up documents into usable, queryable data.</p>
+        <span class="stack">PYTHON · FLASK · STREAMLIT · SQLITE · PDFPLUMBER</span>
+      </div>
+      <div class="cap">
+        <h3>Web Applications</h3>
+        <p>Browser-based tools for planning and process work — BPMN diagramming, interactive facility layout, live map dashboards — plus freelance WordPress builds with real payment flows.</p>
+        <span class="stack">JS · CANVAS · LEAFLET · WORDPRESS · STRIPE</span>
+      </div>
+      <div class="cap">
+        <h3>Hardware & IoT</h3>
+        <p>Practical tracking and sensing prototypes: GPS/Bluetooth parcel tracking across Southeast Asia, Raspberry Pi projects, and a roadmap into cellular IoT hardware.</p>
+        <span class="stack">RASPBERRY PI · ESP32 · GPS/BLE · 4G IOT</span>
+      </div>
+      <div class="cap">
+        <h3>MRO Domain Depth</h3>
+        <p>Working knowledge of the systems behind aircraft maintenance — AMOS, TRAX eMRO, maintenance planning documents, special tooling and calibration management — and how to get data out of them.</p>
+        <span class="stack">AMOS · TRAX · MPD · CALIBRATION</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2>Contact</h2>
-<p>
-Email: mohamadsaifimran@email.com
-</p>
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head"><h2>Selected Work</h2><span class="tag">// task cards</span></div>
+    <div class="cards">
 
-<p>
-<a class="btn" href="mailto:mohamadsaifimran@email.com">Get In Touch</a>
-</p>
+      <article class="tcard">
+        <div class="tcard-head"><span>Card FA-001</span><span>Zone: Process</span><span>Web App</span></div>
+        <div class="tcard-body">
+          <h3>FlowArch</h3>
+          <p>Browser-based BPMN 2.0 process diagram tool for MRO enterprise operations, starting with goods receiving. Canvas-rendered, with field-level diff tracking and side-by-side diagram comparison for auditing process change.</p>
+          <div class="meta"><span>Canvas 2D</span><span>Vite</span><span>Vitest</span><span>BPMN 2.0</span></div>
+        </div>
+      </article>
+
+      <article class="tcard">
+        <div class="tcard-head"><span>Card MP-002</span><span>Zone: Data</span><span>Python</span></div>
+        <div class="tcard-body">
+          <h3>MPD Extractor</h3>
+          <p>PDF parser for Airbus Maintenance Planning Document task cards. Extracts structured task data from complex multi-section layouts into a queryable database with a Streamlit front end.</p>
+          <div class="meta"><span>pdfplumber</span><span>SQLite</span><span>Streamlit</span></div>
+        </div>
+      </article>
+
+      <article class="tcard">
+        <div class="tcard-head"><span>Card H2-003</span><span>Zone: Facility</span><span>Web App</span></div>
+        <div class="tcard-body">
+          <h3>Hangar Space Planner</h3>
+          <p>Interactive 2D layout tool for a widebody hangar floor (A350-1000 / B777 class), built from the real DXF floor plan. Draggable equipment, polygon zones with live area readout, measurement, and scale calibration.</p>
+          <div class="meta"><span>DXF → Canvas</span><span>JSON export</span><span>Zoom/Pan</span></div>
+        </div>
+      </article>
+
+      <article class="tcard">
+        <div class="tcard-head"><span>Card PR-004</span><span>Zone: Docs</span><span>Python</span></div>
+        <div class="tcard-body">
+          <h3>Task Card Print Sorter</h3>
+          <p>Offline batch tool that classifies aircraft maintenance task-card PDFs into duplex and simplex print jobs using header-zone keyword rules — validated against 500+ real cards before a line of classification logic shipped.</p>
+          <div class="meta"><span>pypdf</span><span>Rule engine</span><span>Silent printing</span></div>
+        </div>
+      </article>
+
+      <article class="tcard">
+        <div class="tcard-head"><span>Card ST-005</span><span>Zone: Logistics</span><span>IoT</span></div>
+        <div class="tcard-body">
+          <h3>Shipment Tracker</h3>
+          <p>GPS/Bluetooth parcel tracking across Southeast Asia (KUL–SIN–DEL routes): a BLE tag feeding an automated scraper, logged to the cloud, and visualised on a live Flask + Leaflet map dashboard.</p>
+          <div class="meta"><span>Playwright</span><span>Flask</span><span>Leaflet</span><span>Apps Script</span></div>
+        </div>
+      </article>
+
+      <article class="tcard">
+        <div class="tcard-head"><span>Card CI-006</span><span>Zone: Ops</span><span>Power Platform</span></div>
+        <div class="tcard-body">
+          <h3>CI & Ops Automation Suite</h3>
+          <p>A family of internal tools: a manpower board in Power Apps, calibration-due alerting from a tooling master list, structured Kaizen idea intake, and dashboard delivery to shop-floor TV kiosks.</p>
+          <div class="meta"><span>Power Apps</span><span>Power Automate</span><span>SharePoint</span><span>Power BI</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="freelance">
+  <div class="wrap">
+    <div class="strip">
+      <div>
+        <p class="mono">// Freelance</p>
+        <h2>Web development, done properly</h2>
+        <p>Alongside my day job I take on freelance web work — most recently a full audit and hardening programme for a live campsite booking business: payments, security, backups, and compliance, managed as a tracked backlog rather than ad-hoc fixes.</p>
+      </div>
+      <ul>
+        <li>WordPress builds & audits</li>
+        <li>Stripe payment integration</li>
+        <li>Security hardening & 2FA</li>
+        <li>Booking systems (MotoPress)</li>
+        <li>PDPA-compliant privacy setup</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head"><h2>Raise a work order</h2><span class="tag">// contact</span></div>
+    <p>Have a process that leaks time, a document format nobody can parse, or a website that needs a safe pair of hands? Tell me what's broken — I'll tell you honestly whether it's a process fix or a build.</p>
+    <a class="btn" href="mailto:mohamadsaifimran@gmail.com">Send an email</a>
+    <div class="links">
+      <a href="https://github.com/saifimran97">GitHub</a>
+      <a href="https://www.linkedin.com/in/mohamadsaifimran">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<div class="hazard" role="presentation"></div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Saif Imran — Continuous Improvement & Tooling</span>
+    <span>REV A · BUILT BY HAND, NO TEMPLATE</span>
+  </div>
+</footer>
 
 </body>
 </html>
