@@ -129,6 +129,26 @@
   }
   .tcard .meta span::before{content:"▸ ";color:var(--yellow)}
 
+  /* ---------- service history (experience) ---------- */
+  .log{border:1px solid var(--ink);background:var(--card)}
+  .log-row{
+    display:grid;grid-template-columns:190px 1fr;gap:8px 24px;
+    padding:20px 22px;border-bottom:1px dashed var(--line);
+  }
+  .log-row:last-child{border-bottom:none}
+  .log-row .when{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--steel);letter-spacing:.05em;padding-top:3px}
+  .log-row h3{font-family:"Archivo",sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:.01em}
+  .log-row .co{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--steel);text-transform:uppercase;letter-spacing:.08em;margin:2px 0 6px}
+  .log-row p{font-size:.93rem;color:#31363E}
+  .log-note{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);
+    margin-top:14px;letter-spacing:.03em;
+  }
+  @media (max-width:640px){
+    .log-row{grid-template-columns:1fr;gap:2px}
+    .log-row .when{padding-top:0}
+  }
+
   /* ---------- freelance strip ---------- */
   .strip{
     border:1px solid var(--ink);background:var(--ink);color:var(--paper);
@@ -181,10 +201,11 @@
 
 <header class="top">
   <div class="top-inner">
-    <a class="brand" href="#">Saif Imran/ CI + Tooling</a>
+    <a class="brand" href="#">Saif Imran / CI + Tooling</a>
     <nav>
       <a href="#capabilities">Capabilities</a>
       <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -200,7 +221,7 @@
     <div class="spec" aria-label="Profile summary">
       <div class="spec-head">Personnel Record</div>
       <dl>
-        <div class="row"><dt>Role</dt><dd>CI Executive</dd></div>
+        <div class="row"><dt>Role</dt><dd>Senior Exec, CI</dd></div>
         <div class="row"><dt>Industry</dt><dd>Aviation MRO</dd></div>
         <div class="row"><dt>Experience</dt><dd>10 yrs</dd></div>
         <div class="row"><dt>Method</dt><dd>Lean / Kaizen</dd></div>
@@ -311,6 +332,61 @@
       </article>
 
     </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><h2>Service History</h2><span class="tag">// ten years, floor up</span></div>
+    <div class="log">
+
+      <div class="log-row">
+        <div class="when">MAR 2026 — PRESENT</div>
+        <div>
+          <h3>Senior Executive, Continuous Improvement</h3>
+          <div class="co">Base Maintenance Malaysia · Greater Kuala Lumpur</div>
+          <p>Lean/Kaizen programmes and internal tooling across widebody base maintenance operations — from process mapping and idea intake to the dashboards and automations that keep improvement work moving.</p>
+        </div>
+      </div>
+
+      <div class="log-row">
+        <div class="when">MAR 2022 — MAR 2026</div>
+        <div>
+          <h3>Production Tooling Coordinator</h3>
+          <div class="co">Airfoil Services Sdn Bhd · Petaling Jaya</div>
+          <p>Coordinated OEM and third-party tooling for engine component repair — keeping production running without stoppage, and learning first-hand where tooling availability breaks a schedule.</p>
+        </div>
+      </div>
+
+      <div class="log-row">
+        <div class="when">JUN 2020 — MAR 2022</div>
+        <div>
+          <h3>NDT Inspector</h3>
+          <div class="co">Airfoil Services Sdn Bhd</div>
+          <p>Penetrant testing — certified PT Level 1 and Level 2.</p>
+        </div>
+      </div>
+
+      <div class="log-row">
+        <div class="when">OCT 2018 — JUN 2020</div>
+        <div>
+          <h3>General Mechanic <span style="font-weight:500;color:var(--muted)">(from trainee)</span></h3>
+          <div class="co">Airfoil Services Sdn Bhd</div>
+          <p>Approval holder for chemical and mechanical cleaning of HPC and LPT blades — GE CF6-80C2, CFM56, V2500 and GP7000 series engines.</p>
+        </div>
+      </div>
+
+      <div class="log-row">
+        <div class="when">MAY 2017 — SEP 2018</div>
+        <div>
+          <h3>Ramp & Baggage Operations</h3>
+          <div class="co">Pos Aviation (Pos Malaysia) · Kuala Lumpur</div>
+          <p>Ramp Service Assistant, then Baggage Leader — where the habit of going to the floor and seeing the work started.</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="log-note">REV: FULL RECORD ON LINKEDIN → <a href="https://www.linkedin.com/in/YOUR-PROFILE">/in/YOUR-PROFILE</a></p>
   </div>
 </section>
 
