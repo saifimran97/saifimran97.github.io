@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hangar clocks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F172A;
+    --panel: #152036;
+    --tile: #1E293B;
+    --muted: #94A3B8;
+    --accent: #38BDF8;
+    --text: #F8FAFC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+    overflow: hidden;
+  }
+  .wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    padding: 0;
+  }
+  .clock {
+    flex: 1;
+    min-height: 0;
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 4vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2vh;
+  }
+  .city {
+    font-size: min(7.5vw, 3.6vh);
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .time {
+    font-size: min(27vw, 15vh);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .time .sec {
+    font-size: 0.42em;
+    color: var(--accent);
+    margin-left: 0.12em;
+    letter-spacing: 0;
+  }
+  .date {
+    font-size: min(7.5vw, 3.6vh);
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="clock" id="local">
+    <div class="city" data-role="city"></div>
+    <div class="time"><span data-role="hm">--:--</span><span class="sec" data-role="ss">--</span></div>
+    <div class="date" data-role="date"></div>
+  </section>
+  <section class="clock" id="hq">
+    <div class="city" data-role="city"></div>
+    <div class="time"><span data-role="hm">--:--</span><span class="sec" data-role="ss">--</span></div>
+    <div class="date" data-role="date"></div>
+  </section>
+</div>
+
+<script>
+  // Defaults: local = Kuala Lumpur, HQ = Singapore.
+  // Change the HQ per room with the link, for example:
+  //   .../?hq=Asia/Kolkata&hqname=New%20Delhi
+  var q = new URLSearchParams(location.search);
+  var zones = [
+    { id: "local", tz: q.get("local") || "Asia/Kuala_Lumpur", name: q.get("localname") || "Kuala Lumpur" },
+    { id: "hq",    tz: q.get("hq")    || "Asia/Singapore",    name: q.get("hqname")    || "Singapore" }
+  ];
+
+  zones.forEach(function (z) {
+    var root = document.getElementById(z.id);
+    z.el = {
+      city: root.querySelector('[data-role="city"]'),
+      hm:   root.querySelector('[data-role="hm"]'),
+      ss:   root.querySelector('[data-role="ss"]'),
+      date: root.querySelector('[data-role="date"]')
+    };
+    z.el.city.textContent = z.name;
+    try {
+      z.timeFmt = new Intl.DateTimeFormat("en-GB", {
+        timeZone: z.tz, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+      });
+      z.dateFmt = new Intl.DateTimeFormat("en-GB", {
+        timeZone: z.tz, weekday: "short", day: "numeric", month: "short"
+      });
+    } catch (e) {
+      z.el.city.textContent = z.name + " (unknown time zone)";
+    }
+  });
+
+  function tick() {
+    var now = new Date();
+    zones.forEach(function (z) {
+      if (!z.timeFmt) return;
+      var t = z.timeFmt.format(now).split(":");
+      z.el.hm.textContent = t[0] + ":" + t[1];
+      z.el.ss.textContent = t[2];
+      z.el.date.textContent = z.dateFmt.format(now).replace(",", "");
+    });
+  }
+  tick();
+  setInterval(tick, 500);
+</script>
+</body>
+</html>
